@@ -4,7 +4,9 @@
   "description": "The Dash (Digital Cash) SDK for JS with Types",
   "main": "index.js",
   "scripts": {
-    "fmt": "npx prettier@2 --write '**/*.{md,js,jsx,json,css,html,vue}'"
+    "lint": "npx jshint@2 -c .jshintrc ./lib ./bin ./*.js; npx -p typescript@4 tsc",
+    "fmt": "npx prettier@2 --write '**/*.{md,js}'",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
     "bin",
@@ -30,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/dashhive/digitalcash.js/issues"
   },
-  "homepage": "https://github.com/dashhive/digitalcash.js#readme"
+  "homepage": "https://github.com/dashhive/digitalcash.js#readme",
+  "dependencies": {
+    "@dashevo/dashcore-lib": "^0.19.40"
+  }
 }
