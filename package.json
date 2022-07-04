@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "description": "The Dash (Digital Cash) SDK for JS with Types",
   "main": "index.js",
+  "scripts": {
+    "fmt": "npx prettier@2 --write '**/*.{md,js,jsx,json,css,html,vue}'"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "bin": {
     "digitalcash": "bin/create-tx.js"
   },
   "directories": {
     "lib": "lib"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
