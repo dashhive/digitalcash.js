@@ -1,0 +1,30 @@
+{
+  "name": "digitalcash",
+  "version": "0.1.0",
+  "description": "The Dash (Digital Cash) SDK for JS with Types",
+  "main": "index.js",
+  "bin": {
+    "digitalcash": "bin/create-tx.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashhive/digitalcash.js.git"
+  },
+  "keywords": [
+    "dash",
+    "digital",
+    "cash"
+  ],
+  "author": "AJ ONeal <coolaj86@gmail.com> (https://coolaj86.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dashhive/digitalcash.js/issues"
+  },
+  "homepage": "https://github.com/dashhive/digitalcash.js#readme"
+}
