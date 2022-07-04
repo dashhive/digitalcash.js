@@ -194,7 +194,7 @@ async function promptPassphrase() {
  * @param {String} opts.keypath
  */
 async function importKey({ keypath }) {
-  let key = await maybeReadKeyFileRaw(keypath);
+  let key = await Wallet._maybeReadKeyFileRaw(keypath);
   if (!key?.wif) {
     console.error(`no key found for '${keypath}'`);
     process.exit(1);
@@ -332,6 +332,44 @@ cmds._setPassphrase = function (passphrase) {
   };
 };
 
+/**
+ * @param {String} pre
+ */
+Wallet._findWifPath = async function (pre) {
+  let name = await Wallet._findWif(pre);
+  if (!name) {
+    return "";
+  }
+
+  return Path.join(keysDir, name);
+};
+
+/**
+ * @param {String} pre
+ */
+Wallet._findWif = async function (pre) {
+  if (!pre) {
+    return "";
+  }
+
+  let names = await listManagedKeynames();
+  names = names.filter(function (name) {
+    return name.startsWith(pre);
+  });
+
+  if (!names.length) {
+    return "";
+  }
+
+  if (names.length > 1) {
+    console.error(`'${pre}' is ambiguous:`, names.join(", "));
+    process.exit(1);
+    return "";
+  }
+
+  return names[0];
+};
+
 async function listManagedKeynames() {
   let nodes = await Fs.readdir(keysDir);
 
@@ -350,7 +388,7 @@ async function readAllKeys() {
     await promise;
 
     let keypath = Path.join(keysDir, wifname);
-    let key = await maybeReadKeyFileRaw(keypath);
+    let key = await Wallet._maybeReadKeyFileRaw(keypath);
     if (!key?.wif) {
       return;
     }
@@ -371,23 +409,9 @@ async function readAllKeys() {
  * @param {String} filepath
  * @param {Object} [opts]
  * @param {Boolean} opts.wif
- * @returns {Promise<String>}
- */
-async function maybeReadKeyFile(filepath, opts) {
-  let key = await maybeReadKeyFileRaw(filepath, opts);
-  if (false === opts?.wif) {
-    return key?.addr || "";
-  }
-  return key?.wif || "";
-}
-
-/**
- * @param {String} filepath
- * @param {Object} [opts]
- * @param {Boolean} opts.wif
  * @returns {Promise<RawKey?>}
  */
-async function maybeReadKeyFileRaw(filepath, opts) {
+Wallet._maybeReadKeyFileRaw = async function (filepath, opts) {
   let privKey = await Fs.readFile(filepath, "utf8").catch(
     emptyStringOnErrEnoent,
   );
@@ -426,7 +450,7 @@ async function maybeReadKeyFileRaw(filepath, opts) {
     encrypted: encrypted,
     wif: privKey,
   };
-}
+};
 
 /**
  * @param {String} encWif
