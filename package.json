@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/dashhive/digitalcash.js#readme",
   "dependencies": {
-    "@dashevo/dashcore-lib": "^0.19.40"
+    "@dashevo/dashcore-lib": "^0.19.40",
+    "dotenv": "^16.0.1"
   }
 }
