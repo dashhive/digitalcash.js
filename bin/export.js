@@ -63,6 +63,8 @@ async function exportKey({ addr, filepath }) {
 }
 
 async function main() {
+  // TODO --all for all keys in a single file `keys.wallet`?
+  //      or directory `./wallet/<addr>.wif`
   let name = process.argv[2] || "";
   let filepath = process.argv[3] || "";
   if (!name) {
